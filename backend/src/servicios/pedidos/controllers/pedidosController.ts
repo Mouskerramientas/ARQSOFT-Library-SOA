@@ -3,15 +3,15 @@ import prisma from "../../../prisma";
 
 // Crear un nuevo pedido
 export const crearPedido = async (req: Request, res: Response) => {
-  const { clienteId, libroId, cantidad, estado } = req.body;
+  const { userId, libroId, cantidad, estado } = req.body;
 
   try {
     // Verificar si el cliente existe
-    const cliente = await prisma.cliente.findUnique({
-      where: { id: Number(clienteId) },
+    const user = await prisma.user.findUnique({
+      where: { id: Number(userId) },
     });
-    if (!cliente) {
-      return void res.status(400).json({ error: "Cliente no encontrado" });
+    if (!user) {
+      return void res.status(400).json({ error: "Usuario no encontrado" });
     }
 
     // Verificar si el libro existe
@@ -32,7 +32,7 @@ export const crearPedido = async (req: Request, res: Response) => {
     // Crear el pedido
     const pedido = await prisma.pedido.create({
       data: {
-        clienteId: Number(clienteId),
+        userId: Number(userId),
         libroId: Number(libroId),
         cantidad,
         estado,
