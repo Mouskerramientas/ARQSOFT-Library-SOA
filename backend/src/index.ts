@@ -20,7 +20,6 @@ const unlinkAsync = promisify(fs.unlink);
 
 // Rutas
 app.use("/libros", librosRoutes);
-app.use("/clientes", clientesRoutes);
 app.use("/pedidos", pedidosRoutes);
 
 // Ruta de prueba
