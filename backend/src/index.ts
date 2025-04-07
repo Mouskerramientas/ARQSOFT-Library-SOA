@@ -1,7 +1,6 @@
 import express from "express";
 import middlewares from "./middlewares";
 import librosRoutes from "./servicios/libros/routes/librosRoutes";
-import clientesRoutes from "./servicios/clientes/routes/clientesRoutes";
 import pedidosRoutes from "./servicios/pedidos/routes/pedidosRoutes";
 import multer from "multer";
 import { promisify } from "util";
