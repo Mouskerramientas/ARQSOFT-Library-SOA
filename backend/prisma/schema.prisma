@@ -8,22 +8,25 @@ generator client {
 }
 
 model Libro {
-  id      Int      @id @default(autoincrement())
-  titulo  String
-  autor   String
-  genero  String
-  precio  Float
-  stock   Int
-  pedidos Pedido[]
+  id         Int          @id @default(autoincrement())
+  titulo     String
+  autor      String
+  genero     String
+  precio     Float
+  stock      Int
+  pedidos    Pedido[]
+  inventario Inventario[]
 }
 
-model Cliente {
-  id      Int      @id @default(autoincrement())
-  nombre  String
-  email   String   @unique
+model User {
+  id       Int      @id @default(autoincrement())
+  nombre   String
+  email    String   @unique
+  password String
   telefono String
   direccion String
-  pedidos Pedido[]
+  role     String   @default("USER")
+  pedidos  Pedido[]
 }
 
 model Pedido {
@@ -33,6 +36,14 @@ model Pedido {
   fecha     DateTime @default(now())
   clienteId Int
   libroId   Int
-  cliente   Cliente  @relation(fields: [clienteId], references: [id])
+  userId    Int
   libro     Libro    @relation(fields: [libroId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Inventario {
+  id      Int    @id @default(autoincrement())
+  url     String
+  libroId Int
+  libro   Libro  @relation(fields: [libroId], references: [id])
 }
