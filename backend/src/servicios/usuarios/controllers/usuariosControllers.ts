@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import prisma from "../../../prisma";
 import { encryptPassword, verifyPassword } from "../../../lib/auth/security";
+import jwt from "jsonwebtoken";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
@@ -51,7 +52,13 @@ export const loginUser = async (req: Request, res: Response) => {
       return void res.status(401).json({ message: "Invalid credentials" });
     }
 
-    res.status(200).json(user);
+    const token = jwt.sign(
+      { userId: user.id, userType: user.role },
+      process.env.JWT_SECRET!,
+      { expiresIn: "1h" }
+    );
+
+    res.status(200).json({ token });
   } catch (error) {
     res.status(500).json({ message: "Error logging in", error });
   }
