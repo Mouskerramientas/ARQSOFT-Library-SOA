@@ -1,12 +1,14 @@
 import express from "express";
 import middlewares from "./middlewares";
-import librosRoutes from "./servicios/libros/routes/librosRoutes";
-import pedidosRoutes from "./servicios/pedidos/routes/pedidosRoutes";
 import multer from "multer";
 import { promisify } from "util";
 import fs from "fs";
 import axios from "axios";
 import FormData from "form-data";
+
+import pedidosRoutes from "./servicios/pedidos/routes/pedidosRoutes";
+import librosRoutes from "./servicios/libros/routes/librosRoutes";
+import userRoutes from "./servicios/usuarios/routes/usuariosRoutes";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -20,6 +22,7 @@ const unlinkAsync = promisify(fs.unlink);
 // Rutas
 app.use("/libros", librosRoutes);
 app.use("/pedidos", pedidosRoutes);
+app.use("/users", userRoutes);
 
 // Ruta de prueba
 app.get("/", (req, res) => {
