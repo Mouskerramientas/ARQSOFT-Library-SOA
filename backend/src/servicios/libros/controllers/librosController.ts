@@ -14,15 +14,29 @@ export const agregarLibro = async (req: Request, res: Response) => {
   }
 };
 
-// Listar todos los libros
+// Listar todos los libros ordenados por cantidad de pedidos (de más a menos)
 export const listarLibros = async (req: Request, res: Response) => {
   try {
-    const libros = await prisma.libro.findMany();
+    const libros = await prisma.libro.findMany({
+      include: {
+        _count: {
+          select: { pedidos: true },
+        },
+      },
+      orderBy: {
+        pedidos: {
+          _count: 'desc',
+        },
+      },
+    });
+
     res.status(200).json(libros);
   } catch (error) {
     res.status(500).json({ error: "Error al listar los libros" });
   }
 };
+
+
 
 // Obtener un libro por ID
 export const obtenerLibro = async (req: Request, res: Response) => {
