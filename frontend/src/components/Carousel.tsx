@@ -1,48 +1,22 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; // Import slick-carousel base styles
 import "slick-carousel/slick/slick-theme.css"; // Import slick-carousel theme styles
+import { Book } from "../types/books";
 
-const books = [
-  {
-    id: 1,
-    title: "Book 1",
-    image:
-      "https://marketplace.canva.com/EAFGf9027eM/1/0/1003w/canva-portada-libro-infantil-bosque-ilustrado-azul-P3McSjgOm1I.jpg",
-  },
-  {
-    id: 2,
-    title: "Book 2",
-    image:
-      "https://marketplace.canva.com/EAFGf9027eM/1/0/1003w/canva-portada-libro-infantil-bosque-ilustrado-azul-P3McSjgOm1I.jpg",
-  },
-  {
-    id: 3,
-    title: "Book 3",
-    image:
-      "https://marketplace.canva.com/EAFGf9027eM/1/0/1003w/canva-portada-libro-infantil-bosque-ilustrado-azul-P3McSjgOm1I.jpg",
-  },
-  {
-    id: 4,
-    title: "Book 4",
-    image:
-      "https://marketplace.canva.com/EAFGf9027eM/1/0/1003w/canva-portada-libro-infantil-bosque-ilustrado-azul-P3McSjgOm1I.jpg",
-  },
-  {
-    id: 5,
-    title: "Book 5",
-    image:
-      "https://marketplace.canva.com/EAFGf9027eM/1/0/1003w/canva-portada-libro-infantil-bosque-ilustrado-azul-P3McSjgOm1I.jpg",
-  },
-];
+interface Props {
+  books: Book[];
+}
 
-export default function Carousel() {
+export default function Carousel({ books }: Props) {
+  // Show only the first 5 books
+  books = books.slice(0, 5);
   return (
     <div className="carousel mb-6 w-full">
       <Slider
         dots={true}
         infinite={true}
         speed={500}
-        slidesToShow={3}
+        slidesToShow={5}
         slidesToScroll={1}
         responsive={[
           {
@@ -61,12 +35,12 @@ export default function Carousel() {
           >
             <div className="flex items-center justify-center h-full">
               <img
-                src={book.image}
-                alt={book.title}
+                src={book.imageUrl}
+                alt={book.titulo}
                 className="w-auto max-h-128 aspect-[3/4] object-cover rounded"
               />
             </div>
-            <p className="text-center mt-2">{book.title}</p>
+            <p className="text-center mt-2">{book.titulo}</p>
           </div>
         ))}
       </Slider>
