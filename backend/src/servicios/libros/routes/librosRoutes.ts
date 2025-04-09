@@ -5,6 +5,7 @@ import {
   obtenerLibro,
   actualizarLibro,
   eliminarLibro,
+  obtenerCategorias,
 } from "../controllers/librosController";
 
 const router = express.Router();
@@ -15,5 +16,6 @@ router.get("/", listarLibros); // GET /libros
 router.get("/:id", obtenerLibro); // GET /libros/{id}
 router.put("/:id", actualizarLibro); // PUT /libros/{id}
 router.delete("/:id", eliminarLibro); // DELETE /libros/{id}
+router.get("/categorias", obtenerCategorias);
 
 export default router;
