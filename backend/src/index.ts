@@ -68,6 +68,33 @@ app.post("/upload-to-lambda", upload.single("file"), async (req, res) => {
   }
 });
 
+
+// Obtener enlace de visualización de un archivo
+app.get("/preview-file", async (req, res) => {
+  try {
+    const { file_name } = req.query;
+    
+    if (!file_name) {
+      return void res.status(400).json({ error: "El parámetro 'file_name' es requerido" });
+    }
+    
+    const lambdaUrl = `https://s6cq63bt8c.execute-api.us-east-1.amazonaws.com/default/Lambda-el-mancho-2?file_name=${encodeURIComponent(file_name as string)}`;
+    
+    const response = await axios.get(lambdaUrl);
+    
+    res.json({
+      status: "success",
+      data: response.data,
+    });
+  } catch (error: any) {
+    console.error("Error al generar la URL de visualización:", error.message);
+    res.status(500).json({
+      error: "Error al generar la URL",
+      details: error.message,
+    });
+  }
+});
+
 // Iniciar servidor
 app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);
