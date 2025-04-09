@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Book } from "../types/books";
+import { useNavigate } from "@tanstack/react-router";
 
 interface Props {
   books: Book[];
@@ -9,6 +10,9 @@ interface Props {
 export default function OtherCarousel({ books }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const navigate = useNavigate();
+
+  // Limitar a 5 libros
   books = books.slice(0, 5);
 
   const nextSlide = useCallback(() => {
@@ -48,6 +52,9 @@ export default function OtherCarousel({ books }: Props) {
             <img
               src={book.imageUrl}
               alt={book.titulo}
+              onClick={() => {
+                navigate({ to: `/books/${book.id}` });
+              }}
               className="mt-4 object-cover w-72 h-128 rounded-md shadow-lg hover:scale-102 cursor-pointer duration-300"
             />
             <h1 className="font-bold text-center mt-2">{book.titulo}</h1>
