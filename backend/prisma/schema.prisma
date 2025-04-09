@@ -14,6 +14,7 @@ model Libro {
   genero     String
   precio     Float
   stock      Int
+  imageUrl   String       @default("https://marketplace.canva.com/EAFGf9027eM/1/0/1003w/canva-portada-libro-infantil-bosque-ilustrado-azul-P3McSjgOm1I.jpg")
   pedidos    Pedido[]
   inventario Inventario[]
 }
