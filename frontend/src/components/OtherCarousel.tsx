@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Book } from "../types/books";
 
@@ -9,11 +9,13 @@ interface Props {
 export default function OtherCarousel({ books }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const nextSlide = () => {
+  books = books.slice(0, 5);
+
+  const nextSlide = useCallback(() => {
     setCurrentIndex((prevIndex) =>
       prevIndex === books.length - 1 ? 0 : prevIndex + 1
     );
-  };
+  }, [books.length]);
 
   const prevSlide = () => {
     setCurrentIndex((prevIndex) =>
@@ -27,7 +29,7 @@ export default function OtherCarousel({ books }: Props) {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [nextSlide]);
 
   return (
     <div className="relative w-md md:w-xl max-w-2xl mx-auto">
@@ -46,9 +48,10 @@ export default function OtherCarousel({ books }: Props) {
             <img
               src={book.imageUrl}
               alt={book.titulo}
-              className="object-cover w-72 h-128 rounded-md"
+              className="mt-4 object-cover w-72 h-128 rounded-md shadow-lg hover:scale-102 cursor-pointer duration-300"
             />
-            <h1 className="font-bold text-center mb-4">{book.titulo}</h1>
+            <h1 className="font-bold text-center mt-2">{book.titulo}</h1>
+            <h1 className="text-center mb-8">{book.autor}</h1>
           </div>
         ))}
       </div>

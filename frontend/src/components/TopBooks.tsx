@@ -21,7 +21,7 @@ const TopBooks = () => {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <h2 className="text-xl font-semibold mb-2">Libros más leídos</h2>
       {/* {books.length >= 5 && <Carousel books={books} />} */}
       {books.length && <OtherCarousel books={books} />}
