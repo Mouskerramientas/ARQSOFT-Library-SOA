@@ -64,3 +64,23 @@ export const eliminarLibro = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Error al eliminar el libro" });
   }
 };
+
+// Categorizar libros por género
+export const obtenerCategorias = async (req: Request, res: Response) => {
+  try {
+    const categorias: string[] = [];
+    const libros = await prisma.libro.findMany({
+      select: {
+        genero: true,
+      },
+    });
+    for (const libro of libros) {
+      if (!categorias.includes(libro.genero)) {
+        categorias.push(libro.genero);
+      }
+    }
+    res.status(200).json(categorias);
+  } catch (error) {
+    res.status(500).json({ error: "Error al listar las categorias" });
+  }
+};
