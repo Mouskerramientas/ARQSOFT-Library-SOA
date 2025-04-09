@@ -1,7 +1,8 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { fetchBooks } from "../../lib/services/books";
 import { Book } from "../../types/books";
+import BookCard from "../../components/BookCard";
 
 export const Route = createFileRoute("/books/")({
   component: RouteComponent,
@@ -10,8 +11,6 @@ export const Route = createFileRoute("/books/")({
 function RouteComponent() {
   const [books, setBooks] = useState<Book[]>([]);
   const [error, setError] = useState("");
-
-  const navigate = useNavigate();
 
   const getBooks = async () => {
     try {
@@ -28,16 +27,9 @@ function RouteComponent() {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col items-center gap-4 p-4">
       {books.map((book) => (
-        <div
-          key={book.id}
-          onClick={() => {
-            navigate({ to: `/books/${book.id}` });
-          }}
-        >
-          {book.titulo}
-        </div>
+        <BookCard key={book.id} book={book} />
       ))}
       {error && <div>{error}</div>}
     </div>

@@ -89,7 +89,7 @@ export default function OtherCarousel({ books }: Props) {
             className={`cursor-pointer w-3 h-3 rounded-full shadow-sm ${
               index === currentIndex
                 ? "bg-neutral-900"
-                : "bg-white bg-opacity-50"
+                : "bg-neutral-300 bg-opacity-50"
             }`}
             aria-label={`Ir a la diapositiva ${index + 1}`}
           />
