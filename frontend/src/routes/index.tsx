@@ -8,7 +8,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="p-4 w-full flex flex-col items-center">
+    <div className="p-4 w-full flex flex-col items-center gap-8">
       <h1 className="text-2xl font-bold mb-4">Bienvenido a la Biblioteca</h1>
       <TopBooks />
       <Categories />
