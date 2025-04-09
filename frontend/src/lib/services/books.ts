@@ -7,3 +7,10 @@ export const fetchBooks = async (): Promise<Book[]> => {
   const data = await res.json();
   return data;
 };
+
+export const fetchBookbyId = async (id: string): Promise<Book> => {
+  const res = await fetch(`${API_URL}/libros/${id}`);
+  if (!res.ok) throw new Error("Failed to fetch book");
+  const data = await res.json();
+  return data;
+};
